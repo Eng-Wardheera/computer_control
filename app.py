@@ -494,7 +494,7 @@ brightnessSlider.oninput = () => {
 
 async function setBrightness(){
 
-    await fetch('https://computer-control-three.vercel.app/brightness',{
+    await fetch(' https://pseudomorular-haphazardly-mariette.ngrok-free.dev/brightness',{
 
         method:'POST',
 
@@ -532,7 +532,7 @@ volumeSlider.oninput = () => {
 
 async function setVolume(){
 
-    await fetch('/volume',{
+    await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/volume',{
 
         method:'POST',
 
@@ -556,7 +556,7 @@ async function setVolume(){
 
 async function keyboardLight(){
 
-    await fetch('/keyboard-light',{
+    await fetch(' https://pseudomorular-haphazardly-mariette.ngrok-free.dev/keyboard-light',{
 
         method:'POST'
 
@@ -577,7 +577,7 @@ async function shutdownPC(){
 
     if(confirm("Shutdown PC?")){
 
-        await fetch('/shutdown',{
+        await fetch(' https://pseudomorular-haphazardly-mariette.ngrok-free.dev/shutdown',{
 
             method:'POST'
 
@@ -595,7 +595,7 @@ async function restartPC(){
 
     if(confirm("Restart PC?")){
 
-        await fetch('/restart',{
+        await fetch(' https://pseudomorular-haphazardly-mariette.ngrok-free.dev/restart',{
 
             method:'POST'
 
@@ -614,7 +614,7 @@ async function restartPC(){
 async function loadChromeTabs(){
 
     const response =
-        await fetch('/chrome-tabs')
+        await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/chrome-tabs')
 
     const data =
         await response.json()
@@ -693,7 +693,7 @@ async function closeBrowserTab(title){
 
     if(confirmClose){
 
-        await fetch('/close-browser-tab',{
+        await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/close-browser-tab',{
 
             method:'POST',
 
@@ -726,7 +726,7 @@ loadChromeTabs()
 async function loadCurrentDevice(){
 
     const res =
-        await fetch('/current-device')
+        await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/current-device')
 
     const data =
         await res.json()
@@ -762,7 +762,7 @@ loadCurrentDevice()
 
 async function loadProcesses(){
 
-    const response = await fetch('/processes')
+    const response = await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/processes')
 
     const data = await response.json()
 
@@ -834,7 +834,7 @@ async function closeProcess(pid){
 
     if(confirmClose){
 
-        await fetch('/close-process',{
+        await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/close-process',{
 
             method:'POST',
 
@@ -868,7 +868,7 @@ loadProcesses()
 async function loadSystemInfo(){
 
     const response =
-        await fetch('/system-info')
+        await fetch('https://pseudomorular-haphazardly-mariette.ngrok-free.dev/system-info')
 
     const data =
         await response.json()
