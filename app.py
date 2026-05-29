@@ -14,7 +14,6 @@ import keyboard
 
 from ctypes import cast, POINTER
 
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 
 app = Flask(__name__)
 
@@ -25,6 +24,8 @@ app = Flask(__name__)
 try:
 
     from comtypes import CLSCTX_ALL
+    from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+
     devices = AudioUtilities.GetSpeakers()
 
     interface = devices.Activate(
