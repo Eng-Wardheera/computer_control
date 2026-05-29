@@ -1,5 +1,5 @@
 import time
-import pyautogui
+
 import time
 from flask import Flask, render_template_string, request, jsonify
 import os
@@ -1061,6 +1061,7 @@ def chrome_tabs():
 
 @app.route('/close-browser-tab', methods=['POST'])
 def close_browser_tab():
+    import pyautogui
 
     try:
 
