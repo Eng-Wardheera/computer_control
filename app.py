@@ -1,3 +1,5 @@
+import platform
+import socket
 import time
 
 import time
@@ -384,6 +386,19 @@ input[type=range]{
 
 </div>
 
+<div class="card">
+
+    <h2>Current Device</h2>
+
+    <p>Device: <b id="deviceName"></b></p>
+    <p>IP: <b id="ip"></b></p>
+    <p>OS: <b id="os"></b></p>
+    <p>CPU: <b id="cpu"></b></p>
+    <p>RAM: <b id="ram"></b></p>
+    <p>Battery: <b id="battery"></b></p>
+
+</div>
+
         <!-- RUNNING PROGRAMS -->
 
 <div class="card">
@@ -707,6 +722,40 @@ loadChromeTabs()
 
 
 
+
+async function loadCurrentDevice(){
+
+    const res =
+        await fetch('/current-device')
+
+    const data =
+        await res.json()
+
+    document.getElementById("deviceName")
+        .innerText = data.device_name
+
+    document.getElementById("ip")
+        .innerText = data.ip_address
+
+    document.getElementById("os")
+        .innerText = data.os + " " + data.os_version
+
+    document.getElementById("cpu")
+        .innerText = data.cpu_usage + "%"
+
+    document.getElementById("ram")
+        .innerText = data.ram_usage + "%"
+
+    document.getElementById("battery")
+        .innerText = data.battery
+
+}
+
+setInterval(loadCurrentDevice, 2000)
+loadCurrentDevice()
+
+
+
     /* =========================
    LOAD PROGRAMS
 ========================= */
@@ -975,6 +1024,39 @@ def restart():
     return jsonify({
         'status':'restart'
     })
+
+@app.route('/current-device')
+def current_device():
+
+    try:
+
+        hostname = socket.gethostname()
+
+        ip = socket.gethostbyname(hostname)
+
+        battery = psutil.sensors_battery()
+
+        return jsonify({
+
+            "device_name": hostname,
+            "ip_address": ip,
+            "os": platform.system(),
+            "os_version": platform.version(),
+            "cpu": platform.processor(),
+            "ram_usage": psutil.virtual_memory().percent,
+            "cpu_usage": psutil.cpu_percent(),
+            "battery": (
+                battery.percent if battery else "No Battery"
+            )
+
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        })
 
 
 # =============================
