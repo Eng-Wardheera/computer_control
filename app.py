@@ -6,7 +6,7 @@ import os
 import screen_brightness_control as sbc
 import psutil
 import keyboard
-import pygetwindow as gw
+
 
 # =============================
 # SOUND CONTROL
@@ -982,6 +982,7 @@ def restart():
 def chrome_tabs():
 
     tabs = []
+    import pygetwindow as gw
 
     try:
 
@@ -1062,6 +1063,7 @@ def chrome_tabs():
 @app.route('/close-browser-tab', methods=['POST'])
 def close_browser_tab():
     import pyautogui
+    import pygetwindow as gw
 
     try:
 
