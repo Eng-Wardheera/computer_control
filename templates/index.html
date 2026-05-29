@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced System Dashboard</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial;
+        }
+
+        body{
+            background:#050816;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================== */
+
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:270px;
+            height:100vh;
+            background:#0c1224;
+            border-right:1px solid rgba(255,255,255,0.08);
+            padding:25px;
+        }
+
+        .logo{
+            font-size:30px;
+            font-weight:bold;
+            color:cyan;
+            margin-bottom:40px;
+        }
+
+        .menu{
+            list-style:none;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu button{
+            width:100%;
+            padding:16px;
+            background:#111827;
+            border:none;
+            border-radius:15px;
+            color:white;
+            cursor:pointer;
+            text-align:left;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        .menu button:hover{
+            background:cyan;
+            color:black;
+            transform:translateX(5px);
+        }
+
+        /* =========================
+           DROPDOWN
+        ========================== */
+
+        .dropdown{
+            display:none;
+            padding-left:15px;
+            margin-top:10px;
+        }
+
+        .dropdown a{
+            display:block;
+            padding:12px;
+            text-decoration:none;
+            color:#b8c1ec;
+            background:#0f172a;
+            margin-top:8px;
+            border-radius:10px;
+            transition:0.3s;
+        }
+
+        .dropdown a:hover{
+            background:#00ffff33;
+            color:cyan;
+        }
+
+        /* =========================
+           MAIN CONTENT
+        ========================== */
+
+        .main{
+            margin-left:270px;
+            padding:30px;
+        }
+
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:30px;
+        }
+
+        .topbar h1{
+            color:cyan;
+            font-size:38px;
+        }
+
+        .profile{
+            width:55px;
+            height:55px;
+            border-radius:50%;
+            background:cyan;
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.04);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:25px;
+            padding:25px;
+            backdrop-filter:blur(15px);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 0 25px rgba(0,255,255,0.2);
+        }
+
+        .card h2{
+            margin-bottom:20px;
+            color:cyan;
+        }
+
+        .status{
+            font-size:35px;
+            font-weight:bold;
+            margin-bottom:25px;
+        }
+
+        input[type=range]{
+            width:100%;
+            margin-bottom:20px;
+        }
+
+        button.action{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:15px;
+            background:cyan;
+            color:black;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button.action:hover{
+            background:white;
+        }
+
+        /* =========================
+           POWER CARD
+        ========================== */
+
+        .danger button{
+            margin-top:15px;
+        }
+
+        .shutdown{
+            background:red !important;
+            color:white !important;
+        }
+
+        .restart{
+            background:orange !important;
+            color:black !important;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media(max-width:900px){
+
+            .sidebar{
+                width:100%;
+                height:auto;
+                position:relative;
+            }
+
+            .main{
+                margin-left:0;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        ⚡ SYSTEM UI
+    </div>
+
+    <ul class="menu">
+
+        <li>
+            <button onclick="toggleMenu('systemMenu')">
+                System Controls ▼
+            </button>
+
+            <div class="dropdown" id="systemMenu">
+
+                <a href="#">Brightness</a>
+                <a href="#">Volume</a>
+                <a href="#">Keyboard Light</a>
+
+            </div>
+        </li>
+
+
+        <li>
+            <button onclick="toggleMenu('powerMenu')">
+                Power Options ▼
+            </button>
+
+            <div class="dropdown" id="powerMenu">
+
+                <a href="#">Shutdown</a>
+                <a href="#">Restart</a>
+                <a href="#">Sleep Mode</a>
+
+            </div>
+        </li>
+
+
+        <li>
+            <button onclick="toggleMenu('monitorMenu')">
+                Monitor ▼
+            </button>
+
+            <div class="dropdown" id="monitorMenu">
+
+                <a href="#">CPU Usage</a>
+                <a href="#">RAM Usage</a>
+                <a href="#">GPU Temp</a>
+
+            </div>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h1>ADVANCED DASHBOARD</h1>
+
+        <div class="profile"></div>
+
+    </div>
+
+
+    <div class="grid">
+
+        <!-- BRIGHTNESS -->
+
+        <div class="card">
+
+            <h2>Brightness</h2>
+
+            <div class="status" id="brightnessValue">
+                70%
+            </div>
+
+            <input
+                type="range"
+                min="0"
+                max="100"
+                value="70"
+                id="brightnessSlider"
+            >
+
+            <button class="action">
+                APPLY
+            </button>
+
+        </div>
+
+
+        <!-- VOLUME -->
+
+        <div class="card">
+
+            <h2>Volume</h2>
+
+            <div class="status" id="volumeValue">
+                55%
+            </div>
+
+            <input
+                type="range"
+                min="0"
+                max="100"
+                value="55"
+                id="volumeSlider"
+            >
+
+            <button class="action">
+                APPLY
+            </button>
+
+        </div>
+
+
+        <!-- KEYBOARD LIGHT -->
+
+        <div class="card">
+
+            <h2>Keyboard RGB</h2>
+
+            <div class="status">
+                ON
+            </div>
+
+            <button class="action">
+                TOGGLE RGB
+            </button>
+
+        </div>
+
+
+        <!-- POWER -->
+
+        <div class="card danger">
+
+            <h2>Power Control</h2>
+
+            <button class="action shutdown">
+                SHUTDOWN
+            </button>
+
+            <button class="action restart">
+                RESTART
+            </button>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    function toggleMenu(id){
+
+        const menu = document.getElementById(id)
+
+        if(menu.style.display === "block"){
+
+            menu.style.display = "none"
+
+        }else{
+
+            menu.style.display = "block"
+
+        }
+
+    }
+
+
+    // BRIGHTNESS UI
+
+    const brightnessSlider =
+        document.getElementById('brightnessSlider')
+
+    const brightnessValue =
+        document.getElementById('brightnessValue')
+
+    brightnessSlider.oninput = () => {
+
+        brightnessValue.innerText =
+            brightnessSlider.value + "%"
+
+    }
+
+
+    // VOLUME UI
+
+    const volumeSlider =
+        document.getElementById('volumeSlider')
+
+    const volumeValue =
+        document.getElementById('volumeValue')
+
+    volumeSlider.oninput = () => {
+
+        volumeValue.innerText =
+            volumeSlider.value + "%"
+
+    }
+
+
+
+</script>
+
+</body>
+</html>

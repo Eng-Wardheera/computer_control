@@ -1,0 +1,71 @@
+* {
+    width: 20px;
+    height: 20px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #00ff88;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    padding: 30px;
+    backdrop-filter: blur(15px);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0,255,255,0.2);
+}
+
+.card h2 {
+    margin-bottom: 25px;
+    color: cyan;
+}
+
+.value {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+input[type=range] {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: cyan;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:hover {
+    transform: scale(1.03);
+    background: #00ffee;
+}
+
+.danger button:first-child {
+    background: red;
+    color: white;
+}
+
+.danger button:last-child {
+    background: orange;
+    color: black;
+}
