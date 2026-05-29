@@ -1,4 +1,3 @@
-flask
 pyautogui
 keyboard
 pygetwindow
@@ -6,3 +5,4 @@ psutil
 screen_brightness_control
 pycaw
 comtypes
+flask
