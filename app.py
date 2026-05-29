@@ -494,7 +494,7 @@ brightnessSlider.oninput = () => {
 
 async function setBrightness(){
 
-    await fetch('/brightness',{
+    await fetch('https://computer-control-three.vercel.app/brightness',{
 
         method:'POST',
 
